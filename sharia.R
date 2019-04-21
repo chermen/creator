@@ -13,7 +13,11 @@ library(Zelig)
 
 
 
-shar2<-read.csv("shar_regcont2.csv", header=T,sep=",") ##data with reg controls
+shar2<-read.csv("shar_regcont3.csv", header=T,sep=",") ##data with reg controls
+
+
+
+names(shar2)
 
 ##with fixed effects
 c1<-clm(as.factor(sharia2) ~ age+income+regov+urban+native+
@@ -92,9 +96,8 @@ dev.off()
 ##full model without fixed effects
 names(shar)
 f<-zelig(as.factor(sharia2) ~ age+income+regov+urban+native+
-           male+edu+disrep+privrep+pmeans+biz+repower+
-           fedcorr,
-          model="ologit", data=shar2) 
+           male+edu+disrep+privrep+means+biz+repower+
+           fedcorr,model="ologit", data=shar2) 
 summary(f)
 
 ##function to calculate standard errors
@@ -451,12 +454,7 @@ cplot + geom_point(aes(shape = level,size=1)) +
         plot.title = element_text(size = rel(1)))
 
 
-panel.background=element_blank(),
-  scale_x_discrete(breaks=c("fcorr", "power","business",
-                            "means","private"),
-                   labels=c("Fed Corr", "Power",
-                            "Business", "Means", "Private"))+
- 
+
   ggsave("values2.pdf",width=7,height=7)
 dev.off()
 
